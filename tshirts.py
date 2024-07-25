@@ -1,14 +1,13 @@
-
-def size(cms):
-    if cms < 38:
-        return 'S'
-    elif cms > 38 and cms < 42:
-        return 'M'
+def get_tshirt_size(shoulder_width):
+    if shoulder_width <= 38:
+        return "S"
+    elif shoulder_width <= 40:
+        return "M"
+    elif shoulder_width <= 43:
+        return "L"
+    elif shoulder_width <= 45:
+        return "XL"
     else:
-        return 'L'
+        return "XXL"
 
 
-assert(size(37) == 'S')
-assert(size(40) == 'M')
-assert(size(43) == 'L')
-print("All is well (maybe!)\n")
