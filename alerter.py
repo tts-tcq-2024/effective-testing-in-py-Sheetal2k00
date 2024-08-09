@@ -1,25 +1,27 @@
-alert_failure_count = 0
+THRESHOLD = 200
 
-def network_alert_stub(celcius):
-    print(f'ALERT: Temperature is {celcius} celcius')
-    # Return 200 for ok
-    # Return 500 for not-ok
-    # stub always succeeds and returns 200
-    return 200
+class NetworkError(Exception):
+    pass
 
-def alert_in_celcius(farenheit):
-    celcius = (farenheit - 32) * 5 / 9
-    returnCode = network_alert_stub(celcius)
-    if returnCode != 200:
-        # non-ok response is not an error! Issues happen in life!
-        # let us keep a count of failures to report
-        # However, this code doesn't count failures!
-        # Add a test below to catch this bug. Alter the stub above, if needed.
-        global alert_failure_count
-        alert_failure_count += 0
+def send_alert_stub(value):
+    if value > THRESHOLD:
+        raise NetworkError("Alert: Value exceeded threshold!")
 
+def check_value(value):
+    try:
+        send_alert_stub(value)
+    except NetworkError as e:
+        return str(e)
+    return "All good"
 
-alert_in_celcius(400.5)
-alert_in_celcius(303.6)
-print(f'{alert_failure_count} alerts failed.')
-print('All is well (maybe!)')
+# Production code function using real network sending
+def send_alert(value):
+    # Imagine this is the real network sending implementation
+    pass
+
+def check_value_production(value):
+    try:
+        send_alert(value)
+    except NetworkError as e:
+        return str(e)
+    return "All good"
